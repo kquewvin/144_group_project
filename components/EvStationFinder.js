@@ -1,22 +1,31 @@
 import { useState } from "react";
 
-export default function EvStationFinder() {
+export default function StationFinder() {
 	const [stations, setStations] = useState([]);
-	const [location, setLocation] = useState("Toronto, ON, Canada");
+	const [location, setLocation] = useState("Toronto, ON");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
+		setError(null);
+
 		try {
-			const res = await fetch(`/api/evStations?location=${encodeURIComponent(location)}&limit=20`);
-			const { stations } = await res.json();
-      console.log(stations); // data structure
-			setStations(stations);
-			setError(null);
+			const response = await fetch(`/api/evStations?location=${encodeURIComponent(location)}`);
+			const data = await response.json();
+			// Path to stations array
+			const stationsData = data.stations?.data;
+
+			if (!Array.isArray(stationsData)) {
+				throw new Error("API response format unexpected");
+			}
+
+			setStations(stationsData);
 		} catch (err) {
+			console.error("Fetch error:", err);
 			setError(err.message);
+			setStations([]);
 		} finally {
 			setLoading(false);
 		}
@@ -24,34 +33,39 @@ export default function EvStationFinder() {
 
 	return (
 		<div>
-			<h1>Find EV Charging Stations</h1>
-
-			{/* Location Search Form */}
-			<form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-				<input
-					type='text'
-					value={location}
-					onChange={(e) => setLocation(e.target.value)}
-					placeholder='Enter a location'
-					required
-					style={{ padding: "8px", width: "300px" }}
-				/>
-				<button type='submit' disabled={loading} style={{ padding: "8px 16px", marginLeft: "10px" }}>
+			<form onSubmit={handleSubmit}>
+				<input value={location} onChange={(e) => setLocation(e.target.value)} placeholder='Enter location' />
+				<button type='submit' disabled={loading}>
 					{loading ? "Searching..." : "Search"}
 				</button>
 			</form>
 
-			{/* Error Message */}
-			{error && <p style={{ color: "red" }}>Error: {error}</p>}
+			{error && <div style={{ color: "red" }}>Error: {error}</div>}
 
-			{/* Results */}
 			<div>
-				<h2>Stations near {location}</h2>
-				<pre>{JSON.stringify(stations, null, 2)}</pre>
+				{loading ? (
+					<p>Loading stations...</p>
+				) : stations.length > 0 ? (
+					<ul style={{ listStyle: "none", padding: "1rem" }}>
+						{stations.map((station) => (
+							<li key={station.id} style={{ marginBottom: "1rem" }}>
+								<strong>{station.name}</strong>
+								<div>{station.formatted_address}</div>
+								<div style={{ color: "lightblue" }}>
+									<a
+										href={`https://maps.google.com/?q=${encodeURIComponent(station.formatted_address)}`}
+										target='_blank'
+										rel='noopener noreferrer'>
+										View on Google Maps
+									</a>
+								</div>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p>No stations found</p>
+				)}
 			</div>
 		</div>
 	);
 }
-
-
-// <pre>{JSON.stringify(stations, null, 2)}</pre>
