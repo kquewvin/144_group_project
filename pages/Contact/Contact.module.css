@@ -1,0 +1,14 @@
+.container {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+}
+
+.title,
+.desc {
+  margin-bottom: 3rem;
+}
+
+.title2 {
+  margin-bottom: 1rem;
+}

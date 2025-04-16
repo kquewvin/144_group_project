@@ -40,3 +40,22 @@ a {
     color-scheme: dark;
   }
 }
+
+.nav-bar {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1.5rem;
+	padding: 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-bar a {
+	text-decoration: none;
+	color: #ededed;
+	font-weight: 500;
+	transition: color 0.2s ease-in-out;
+}
+
+.nav-bar a:hover {
+	color: #0070f3;
+}

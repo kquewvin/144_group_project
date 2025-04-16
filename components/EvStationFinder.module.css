@@ -1,0 +1,117 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #0070f3, #00c4ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  
+  .form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: #378ef2;
+    }
+  }
+  
+  .button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: #ff0000;
+    margin-bottom: 1rem;
+  }
+  
+  .loading {
+    color: #666;
+    margin: 1rem 0;
+  }
+  
+  .stationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .stationItem {
+    background-color: #161616;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stationName {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: green;
+  }
+  
+  .stationAddress {
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  .mapsLink {
+    color: #0070f3;
+    text-decoration: none;
+  }
+  
+  .mapsLink:hover {
+    text-decoration: underline;
+  }
+  
+  .noStations {
+    color: #666;
+    margin: 1rem 0;
+  }
+  
+  .trademark {
+    position: fixed;
+    bottom: 10px;
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+    left: 50%;
+    transform: translateX(-50%);
+  }
